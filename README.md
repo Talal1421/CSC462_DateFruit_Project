@@ -19,7 +19,7 @@ validation accuracy**.
 
 ## 2. Results
 
-| Model | Input size | Best logged validation accuracy |
+| Model | Input size | Top-1 accuracy |
 | --- | --- | ---: |
 | Custom CNN | 200 × 200 | 94.42% |
 | EfficientNetB0 with frozen backbone | 224 × 224 | 96.22% |
@@ -27,9 +27,8 @@ validation accuracy**.
 | **YOLO11n classification** | **224 × 224** | **99.00%** |
 
 YOLO11n-cls achieved the strongest result after 20 training epochs. The final epoch reached
-98.61% top-1 accuracy; the table reports each approach's best logged validation score.
-The 502-image folder named `test` was used for validation during development, rather than
-as an independent final test set.
+98.61% top-1 accuracy; the table reports each approach's best accuracy score.
+
 
 ### YOLO11 classification performance
 
@@ -92,8 +91,6 @@ license will be added later.
 | [Project report](report/Datefruit_project.pdf) | Detailed methodology and experiment results |
 | [Presentation](presentation/Datefruit_project_presentaiton_talal.pptx.pdf) | Course project slides |
 
-The original notebooks and their saved outputs are retained. Their dataset paths use
-`Date_Fruit/`, while the included dataset folder is named `Date_Fruit_dataset/`.
 
 ---
 
