@@ -1,0 +1,10 @@
+# TensorFlow notebooks. Use Python 3.12 in a separate environment from YOLO.
+tensorflow==2.17.0
+keras==3.5.0
+numpy==1.26.4
+matplotlib==3.9.2
+scikit-learn==1.5.1
+seaborn==0.13.2
+Pillow==10.4.0
+jupyterlab>=4,<5
+ipykernel>=6,<7

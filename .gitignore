@@ -1,0 +1,26 @@
+# Environments, caches and editor state
+.venv*/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+
+# New training outputs; preserve the included historical YOLO run.
+/runs/
+/models/
+*.cache
+*.h5
+*.keras
+*.pt
+!/yolo11-cls/weights/best.pt
+!/yolo11-cls/weights/last.pt
+*.onnx
+*.engine
+*.log
