@@ -142,7 +142,7 @@ YOLO11n-cls summary: 151 layers, 1,542,633 parameters,
                     1,542,633 gradients, 3.3 GFLOPs
 ```
 
-**Image examples reproduced from the report**
+**Image examples of Yolov11-cls default automatic augmentations during training**
 
 | Example batch 1 | Example batch 2 |
 | :---: | :---: |
