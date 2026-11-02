@@ -65,7 +65,7 @@ The notebooks, saved YOLO run settings, and report document the experiments in m
 
 ### Model architectures
 
-<details>
+<details open>
 <summary>Approach 1: Custom CNN architecture and training figures</summary>
 
 The custom CNN takes **200 × 200 RGB images**, applies three convolution/pooling blocks,
@@ -93,7 +93,7 @@ and ends with a nine-class softmax classifier. The layer summary from the report
 
 </details>
 
-<details>
+<details open>
 <summary>Approach 2: EfficientNetB0 architecture, frozen backbone, and fine tuning</summary>
 
 The ImageNet-pretrained backbone processes **224 × 224 RGB images**. Global average pooling,
@@ -118,7 +118,7 @@ output with its own nine-class classifier.
 
 </details>
 
-<details>
+<details open>
 <summary>Approach 3: YOLO11n-cls architecture and report figures</summary>
 
 The pretrained classification model is adapted to **nine classes**, using **224 × 224** inputs.
