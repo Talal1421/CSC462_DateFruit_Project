@@ -63,6 +63,93 @@ These figures come from the saved experiment outputs in the EfficientNetB0 noteb
 I compared the models using validation accuracy, training curves, and confusion matrices.
 The notebooks, saved YOLO run settings, and report document the experiments in more detail.
 
+### Model architectures
+
+<details>
+<summary>Approach 1: Custom CNN architecture and training figures</summary>
+
+The custom CNN takes **200 × 200 RGB images**, applies three convolution/pooling blocks,
+and ends with a nine-class softmax classifier. The layer summary from the report is:
+
+| Layer | Output shape | Parameters |
+| --- | --- | ---: |
+| Conv2D, 32 filters, 5 × 5 | (None, 196, 196, 32) | 2,432 |
+| MaxPooling2D | (None, 98, 98, 32) | 0 |
+| Conv2D, 32 filters, 3 × 3 | (None, 96, 96, 32) | 9,248 |
+| MaxPooling2D | (None, 48, 48, 32) | 0 |
+| Conv2D, 32 filters, 3 × 3 | (None, 46, 46, 32) | 9,248 |
+| MaxPooling2D | (None, 23, 23, 32) | 0 |
+| Flatten | (None, 16,928) | 0 |
+| Dense, 256 units | (None, 256) | 4,333,824 |
+| Dropout | (None, 256) | 0 |
+| Dense, 9 classes | (None, 9) | 2,313 |
+| **Total** | | **4,357,065** |
+
+**Training figures from the report**
+
+| Accuracy | Loss |
+| :---: | :---: |
+| ![Custom CNN training and validation accuracy from the report](assets/cnn_report_accuracy.png) | ![Custom CNN training and validation loss from the report](assets/cnn_report_loss.png) |
+
+</details>
+
+<details>
+<summary>Approach 2: EfficientNetB0 architecture, frozen backbone, and fine tuning</summary>
+
+The ImageNet-pretrained backbone processes **224 × 224 RGB images**. Global average pooling,
+dropout, and a nine-class dense output adapt it to the date varieties.
+
+![EfficientNet backbone and MBConv block illustration used in the project report](assets/efficientnet_backbone.png)
+
+This is the backbone illustration used in the report; the project replaces the illustrated
+output with its own nine-class classifier.
+
+| Layer | Output shape | Parameters |
+| --- | --- | ---: |
+| EfficientNetB0 backbone | (None, 7, 7, 1,280) | 4,049,571 |
+| Global average pooling | (None, 1,280) | 0 |
+| Dropout | (None, 1,280) | 0 |
+| Dense, 9 classes | (None, 9) | 11,529 |
+| **Total model parameters** | | **4,061,100** |
+
+- **Frozen-backbone stage:** train the new classification head only, with 11,529 trainable parameters.
+- **Fine-tuning stage:** unfreeze from `block6d_se_excite` onward while keeping earlier layers
+  and batch normalization frozen. The saved notebook reports 1,354,297 trainable parameters.
+
+</details>
+
+<details>
+<summary>Approach 3: YOLO11n-cls architecture and report figures</summary>
+
+The pretrained classification model is adapted to **nine classes**, using **224 × 224** inputs.
+The report records the following architecture:
+
+```text
+    from  n   params  module                                  arguments
+ 0    -1  1      464  ultralytics.nn.modules.conv.Conv         [3, 16, 3, 2]
+ 1    -1  1     4672  ultralytics.nn.modules.conv.Conv         [16, 32, 3, 2]
+ 2    -1  1     6640  ultralytics.nn.modules.block.C3k2        [32, 64, 1, False, 0.25]
+ 3    -1  1    36992  ultralytics.nn.modules.conv.Conv         [64, 64, 3, 2]
+ 4    -1  1    26080  ultralytics.nn.modules.block.C3k2        [64, 128, 1, False, 0.25]
+ 5    -1  1   147712  ultralytics.nn.modules.conv.Conv         [128, 128, 3, 2]
+ 6    -1  1    87040  ultralytics.nn.modules.block.C3k2        [128, 128, 1, True]
+ 7    -1  1   295424  ultralytics.nn.modules.conv.Conv         [128, 256, 3, 2]
+ 8    -1  1   346112  ultralytics.nn.modules.block.C3k2        [256, 256, 1, True]
+ 9    -1  1   249728  ultralytics.nn.modules.block.C2PSA       [256, 256, 1]
+10    -1  1   341769  ultralytics.nn.modules.head.Classify     [256, 9]
+
+YOLO11n-cls summary: 151 layers, 1,542,633 parameters,
+                    1,542,633 gradients, 3.3 GFLOPs
+```
+
+**Image examples reproduced from the report**
+
+| Example batch 1 | Example batch 2 |
+| :---: | :---: |
+| ![First grid of date images shown in the YOLO section of the report](assets/yolo11_report_examples_1.jpg) | ![Second grid of date images shown in the YOLO section of the report](assets/yolo11_report_examples_2.jpg) |
+
+</details>
+
 ## 4. Dataset
 
 The dataset contains **nine date varieties** from Kaggle. The original training split has
