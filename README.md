@@ -12,8 +12,8 @@
 ## 1. Overview
 
 Distinguishing date varieties by appearance is useful for automated sorting and quality control.
-For this course project, I built and compared three image classification approaches: a custom
-convolutional neural network, transfer learning with EfficientNetB0, and fine-tuning YOLO11n-cls.
+For this CSC462 course project, I built and compared three image classification approaches: a custom
+CNN, transfer learning with EfficientNetB0, and fine-tuning YOLO11n-cls.
 The models classify images into nine date varieties, with the best model reaching **99.00%
 validation accuracy**.
 
@@ -89,7 +89,7 @@ license will be added later.
 | [Augmentation notebook](DateFruit-augmentation.ipynb) | Examples and generation of training image flips |
 | [YOLO11 results](yolo11-cls/) | Trained weights, experiment settings, metrics, and plots |
 | [Project report](report/Datefruit_project.pdf) | Detailed methodology and experiment results |
-| [Presentation](presentation/Datefruit_project_presentaiton_talal.pptx.pdf) | Course project slides |
+| [Presentation](presentation/Datefruit_project_presentaiton_talal.pdf) | project presentation slides |
 
 
 ---
